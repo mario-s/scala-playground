@@ -31,7 +31,7 @@ private[mario] trait FractalCalculator {
     2 * x_n * y_n + y
 
   /**
-    * Returns true is the square product is greater than max
+    * Returns true if the square product is greater than max
     */
   def isMax(reZ: Double, imZ: Double): Boolean =
     reZ * reZ + imZ * imZ > 4
