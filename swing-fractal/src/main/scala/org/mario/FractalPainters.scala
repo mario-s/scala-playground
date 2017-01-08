@@ -50,8 +50,6 @@ private[mario] case class Julia(width: Int, height: Int) extends FractalPainter(
   val topBorder: Double = -0.96
   val leftBorder: Double = -1.5
 
-  def this(dim: Dimension) = this(dim.width, dim.height)
-
   def isLimit(reZ_minus1: Double, imZ_minus1: Double): Boolean = {
     val reC: Double = -0.65175
     val imC: Double = 0.4185
@@ -65,11 +63,8 @@ private[mario] case class Appleman(width: Int, height: Int) extends FractalPaint
   val topBorder: Double = -1.1
   val leftBorder: Double = -2.1
 
-  def this(dim: Dimension) = this(dim.width, dim.height)
+  def isLimit(reC: Double, imC: Double) =  check(0, 0, reC, imC, 0) == lim
 
-  def isLimit(reC: Double, imC: Double): Boolean = {
-    check(0, 0, reC, imC, 0) == lim
-  }
 }
 
 

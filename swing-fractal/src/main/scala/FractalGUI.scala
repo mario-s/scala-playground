@@ -13,7 +13,7 @@ object FractalGUI extends SimpleSwingApplication{
 		title = "Fraktale"
 		resizable = false
 
-		val select = new ComboBox(List("Apfel", "Julia"))
+		val select = new ComboBox(List("","Apfel", "Julia"))
 		val comp = new FractalComponent(dim)
 
 	  contents = new BorderPanel() {

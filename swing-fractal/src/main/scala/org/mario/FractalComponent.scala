@@ -11,7 +11,7 @@ class FractalComponent(width: Int, height: Int) extends Component {
 
   def this(dim: Dimension) = this(dim.width, dim.height)
 
-  var painter: FractalPainter = Appleman(width, height)
+  var painter = None: Option[FractalPainter]
 
   def paintFractal(fractalType: String) {
     println("type : " + fractalType)
@@ -19,13 +19,17 @@ class FractalComponent(width: Int, height: Int) extends Component {
     repaint()
   }
 
-  private def typeMatch(fractalType: String): FractalPainter = fractalType match {
-    case "Julia" => Julia(width, height)
-    case _ => Appleman(width, height)
+  private def typeMatch(fractalType: String): Option[FractalPainter] = fractalType match {
+    case "Apfel" => Some(Appleman(width, height))
+    case "Julia" => Some(Julia(width, height))
+    case _ => None
   }
 
   override def paint(g: Graphics2D): Unit = {
-    painter.paint(g)
+    painter match {
+      case Some(painter) => painter.paint(g)
+      case _ => println("nothing to show here")
+    }
   }
 }
 
