@@ -2,6 +2,8 @@ package org.mario
 
 import java.awt.{Color, Dimension, Graphics2D}
 
+import scala.util.Random
+
 /**
   * A common component for fractal graphics
   */
@@ -12,6 +14,17 @@ private[mario] abstract class FractalPainter(width: Int, height: Int) {
   def this(dim: Dimension) = this(dim.width, dim.height)
 
   //graphic color
+  val color: Color
+
+  def doPaint(g: Graphics2D)
+
+  def paint(g: Graphics2D) {
+    g.setColor(color)
+    doPaint(g)
+  }
+}
+
+private[mario] abstract class LimitFractalPainter(width: Int, height: Int) extends FractalPainter(width: Int, height: Int) {
   val color: Color = new Color(0, 0, 200);
 
   //a pixel = 0.0065
@@ -26,8 +39,7 @@ private[mario] abstract class FractalPainter(width: Int, height: Int) {
   //abstract method
   def isLimit(reZ_minus1: Double, imZ_minus1: Double): Boolean
 
-  def paint(g: Graphics2D) {
-    g.setColor(color)
+  def doPaint(g: Graphics2D) {
 
     var im: Double = topBorder
     for (y <- 0 to height) {
@@ -45,7 +57,7 @@ private[mario] abstract class FractalPainter(width: Int, height: Int) {
 }
 
 //concrete implementation for a Julia graphic
-private[mario] case class Julia(width: Int, height: Int) extends FractalPainter(width: Int, height: Int) with FractalCalculator {
+private[mario] case class Julia(width: Int, height: Int) extends LimitFractalPainter(width: Int, height: Int) with FractalCalculator {
   val lim: Int = 47
   val topBorder: Double = -0.96
   val leftBorder: Double = -1.5
@@ -58,13 +70,55 @@ private[mario] case class Julia(width: Int, height: Int) extends FractalPainter(
 }
 
 //concrete implementation for a Appleman
-private[mario] case class Appleman(width: Int, height: Int) extends FractalPainter(width: Int, height: Int) with FractalCalculator {
+private[mario] case class Appleman(width: Int, height: Int) extends LimitFractalPainter(width: Int, height: Int) with FractalCalculator {
   val lim: Int = 30
   val topBorder: Double = -1.1
   val leftBorder: Double = -2.1
 
   def isLimit(reC: Double, imC: Double) =  check(0, 0, reC, imC, 0) == lim
 
+}
+
+private[mario] case class Fern(width: Int, height: Int) extends FractalPainter(width: Int, height: Int) {
+
+  val color: Color = new Color(0, 255, 0);
+
+  val transformFunction = TransformFunction
+
+  def doPaint(g: Graphics2D) = {
+    g.drawLine(height / 2, width / 2, height / 2, width / 2)
+    drawFern((0, 1), 1000, g)
+  }
+
+  private def rnd = Random.nextInt(100)
+
+  private def drawFern(p: (Double, Double), max: Int, g: Graphics2D) {
+    paintPoint(p, g)
+    if (max != 0)
+      drawFern(transformFunction(p._1, p._2), max - 1, g)
+  }
+
+  private def paintPoint(p: (Double, Double), g: Graphics2D) = {
+    val scale = height / 11
+    val y = (height - 25) - (scale * p._2)
+    val x = (width / 2) + (scale * p._1)
+    g.drawLine(x.toInt, y.toInt, x.toInt, y.toInt)
+  }
+
+  object TransformFunction extends ((Double, Double) => (Double, Double)) {
+
+    def transformPoint(p: (Double, Double), a: Double, b: Double, c: Double, d: Double, s: Double): (Double, Double) =
+      ((a * p._1) + (b * p._2), ((c * p._1) + (d * p._2) + s))
+
+    def apply(x: Double, y: Double) = {
+      rnd match {
+        case n if n <= 1 => transformPoint((x, y), 0.0, 0.0, 0.0, 0.16, 0.0)
+        case n if n <= 7 => transformPoint((x, y), 0.2, -0.26, 0.23, 0.22, 1.6)
+        case n if n <= 14 => transformPoint((x, y), -0.15, 0.28, 0.26, 0.24, 0.44)
+        case n if n <= 100 => transformPoint((x, y), 0.85, 0.04, -0.04, 0.85, 1.6)
+      }
+    }
+  }
 }
 
 
