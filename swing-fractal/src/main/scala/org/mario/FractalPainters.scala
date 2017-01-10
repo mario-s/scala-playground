@@ -57,7 +57,7 @@ private[mario] abstract class LimitFractalPainter(width: Int, height: Int) exten
 }
 
 //concrete implementation for a Julia graphic
-private[mario] case class Julia(width: Int, height: Int) extends LimitFractalPainter(width: Int, height: Int) with FractalCalculator {
+private[mario] class Julia(width: Int, height: Int) extends LimitFractalPainter(width: Int, height: Int) with FractalCalculator {
   val lim: Int = 47
   val topBorder: Double = -0.96
   val leftBorder: Double = -1.5
@@ -70,7 +70,7 @@ private[mario] case class Julia(width: Int, height: Int) extends LimitFractalPai
 }
 
 //concrete implementation for a Appleman
-private[mario] case class Appleman(width: Int, height: Int) extends LimitFractalPainter(width: Int, height: Int) with FractalCalculator {
+private[mario] class Appleman(width: Int, height: Int) extends LimitFractalPainter(width: Int, height: Int) with FractalCalculator {
   val lim: Int = 30
   val topBorder: Double = -1.1
   val leftBorder: Double = -2.1
@@ -79,7 +79,7 @@ private[mario] case class Appleman(width: Int, height: Int) extends LimitFractal
 
 }
 
-private[mario] case class Fern(width: Int, height: Int) extends FractalPainter(width: Int, height: Int) {
+private[mario] class Fern(width: Int, height: Int) extends FractalPainter(width: Int, height: Int) {
 
   val color: Color = new Color(0, 255, 0);
 
@@ -87,7 +87,7 @@ private[mario] case class Fern(width: Int, height: Int) extends FractalPainter(w
 
   def doPaint(g: Graphics2D) = {
     g.drawLine(height / 2, width / 2, height / 2, width / 2)
-    drawFern((0, 1), 1000, g)
+    drawFern((0, 1), 20000, g)
   }
 
   private def rnd = Random.nextInt(100)

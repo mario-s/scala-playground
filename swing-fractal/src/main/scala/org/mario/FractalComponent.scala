@@ -20,9 +20,9 @@ class FractalComponent(width: Int, height: Int) extends Component {
   }
 
   private def typeMatch(fractalType: String): Option[FractalPainter] = fractalType match {
-    case "Apfel" => Some(Appleman(width, height))
-    case "Farn" => Some(Fern(width, height))
-    case "Julia" => Some(Julia(width, height))
+    case "Apfel" => Some(new Appleman(width, height))
+    case "Farn" => Some(new Fern(width, height))
+    case "Julia" => Some(new Julia(width, height))
     case _ => None
   }
 
