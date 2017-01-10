@@ -15,10 +15,11 @@ object FractalGUI extends SimpleSwingApplication with MessageBundle{
 		title = msg("title")
 		resizable = false
 
-		val select = new ComboBox(List("", msg("apple"), msg("fern"), msg("julia")))
+        val types = List("", Type("apple"), Type("fern"), Type("julia"))
+		val select = new ComboBox(types)
 		val comp = new FractalComponent(dim)
 
-	  contents = new BorderPanel() {
+        contents = new BorderPanel() {
 			layout(select) = North
 			layout(comp) = Center
 		}

@@ -13,16 +13,17 @@ class FractalComponent(width: Int, height: Int) extends Component {
 
   var painter = None: Option[FractalPainter]
 
-  def paintFractal(fractalType: String) {
+  def paintFractal(fractalType: Any) {
     println("type : " + fractalType)
     painter = typeMatch(fractalType)
     repaint()
   }
+  
 
-  private def typeMatch(fractalType: String): Option[FractalPainter] = fractalType match {
-    case "Apfel" => Some(new Appleman(width, height))
-    case "Farn" => Some(new Fern(width, height))
-    case "Julia" => Some(new Julia(width, height))
+  private def typeMatch(fractalType: Any): Option[FractalPainter] = fractalType match {
+    case Type("apple") => Some(new Appleman(width, height))
+    case Type("fern") => Some(new Fern(width, height))
+    case Type("julia") => Some(new Julia(width, height))
     case _ => None
   }
 
