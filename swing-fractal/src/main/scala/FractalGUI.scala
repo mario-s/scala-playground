@@ -1,21 +1,21 @@
 import java.awt.Dimension
 
-import org.mario._
+import org.bundle._
+import org.fract._
 
 import scala.swing.BorderPanel.Position._
 import scala.swing._
 import scala.swing.event._
 
 
-object FractalGUI extends SimpleSwingApplication{
+object FractalGUI extends SimpleSwingApplication with MessageBundle{
 	val dim = new Dimension(600,400)
   
 	def top = new MainFrame{
-		title = "Fraktale"
+		title = msg("title")
 		resizable = false
 
-
-		val select = new ComboBox(List("","Apfel", "Farn", "Julia"))
+		val select = new ComboBox(List("", msg("apple"), msg("fern"), msg("julia")))
 		val comp = new FractalComponent(dim)
 
 	  contents = new BorderPanel() {
@@ -24,8 +24,8 @@ object FractalGUI extends SimpleSwingApplication{
 		}
 
 		menuBar  = new MenuBar{
-			contents += new Menu("Datei") {
-				contents += new MenuItem(Action("Beenden") {
+			contents += new Menu(msg("file")) {
+				contents += new MenuItem(Action(msg("finish")) {
 					System.exit(0)
 				})
 			}

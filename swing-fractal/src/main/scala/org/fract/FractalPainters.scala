@@ -1,4 +1,4 @@
-package org.mario
+package org.fract
 
 import java.awt.{Color, Dimension, Graphics2D}
 
@@ -7,7 +7,7 @@ import scala.util.Random
 /**
   * A common component for fractal graphics
   */
-private[mario] abstract class FractalPainter(width: Int, height: Int) {
+private[fract] abstract class FractalPainter(width: Int, height: Int) {
   require(width != 0)
   require(height != 0)
 
@@ -24,7 +24,7 @@ private[mario] abstract class FractalPainter(width: Int, height: Int) {
   }
 }
 
-private[mario] abstract class LimitFractalPainter(width: Int, height: Int) extends FractalPainter(width: Int, height: Int) {
+private[fract] abstract class LimitFractalPainter(width: Int, height: Int) extends FractalPainter(width: Int, height: Int) {
   val color: Color = new Color(0, 0, 200);
 
   //a pixel = 0.0065
@@ -57,7 +57,7 @@ private[mario] abstract class LimitFractalPainter(width: Int, height: Int) exten
 }
 
 //concrete implementation for a Julia graphic
-private[mario] class Julia(width: Int, height: Int) extends LimitFractalPainter(width: Int, height: Int) with FractalCalculator {
+private[fract] class Julia(width: Int, height: Int) extends LimitFractalPainter(width: Int, height: Int) with FractalCalculator {
   val lim: Int = 47
   val topBorder: Double = -0.96
   val leftBorder: Double = -1.5
@@ -70,7 +70,7 @@ private[mario] class Julia(width: Int, height: Int) extends LimitFractalPainter(
 }
 
 //concrete implementation for a Appleman
-private[mario] class Appleman(width: Int, height: Int) extends LimitFractalPainter(width: Int, height: Int) with FractalCalculator {
+private[fract] class Appleman(width: Int, height: Int) extends LimitFractalPainter(width: Int, height: Int) with FractalCalculator {
   val lim: Int = 30
   val topBorder: Double = -1.1
   val leftBorder: Double = -2.1
@@ -79,7 +79,7 @@ private[mario] class Appleman(width: Int, height: Int) extends LimitFractalPaint
 
 }
 
-private[mario] class Fern(width: Int, height: Int) extends FractalPainter(width: Int, height: Int) {
+private[fract] class Fern(width: Int, height: Int) extends FractalPainter(width: Int, height: Int) {
 
   val color: Color = new Color(0, 255, 0);
 

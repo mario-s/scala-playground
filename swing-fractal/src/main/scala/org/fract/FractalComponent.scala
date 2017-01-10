@@ -1,4 +1,4 @@
-package org.mario
+package org.fract
 
 import java.awt.{Dimension, Graphics2D}
 

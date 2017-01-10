@@ -1,9 +1,9 @@
-package org.mario
+package org.fract
 
 /**
   * Trait to calculate the x and y coordinates
   */
-private[mario] trait FractalCalculator {
+private[fract] trait FractalCalculator {
   val lim: Int //limit for a recursion
 
   def check(reZ_minus1: Double, imZ_minus1: Double, reC: Double, imC: Double, i: Int): Int = {
