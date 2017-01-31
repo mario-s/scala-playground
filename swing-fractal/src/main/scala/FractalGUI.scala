@@ -8,41 +8,41 @@ import scala.swing._
 import scala.swing.event._
 
 
-object FractalGUI extends SimpleSwingApplication with MessageBundle{
-	val dim = new Dimension(600,400)
-  
-	def top = new MainFrame{
-		title = msg("title")
-		resizable = false
+object FractalGUI extends SimpleSwingApplication with MessageBundle {
+  val dim = new Dimension(600, 400)
 
-        val types = List("", Type("apple"), Type("fern"), Type("julia"))
-		val select = new ComboBox(types)
-		val comp = new FractalComponent(dim)
+  def top = new MainFrame {
+    title = msg("title")
+    resizable = false
 
-        contents = new BorderPanel() {
-			layout(select) = North
-			layout(comp) = Center
-		}
+    val types = List("", Type("apple"), Type("fern"), Type("julia"))
+    val select = new ComboBox(types)
+    val comp = new FractalComponent(dim)
 
-		menuBar  = new MenuBar{
-			contents += new Menu(msg("file")) {
-				contents += new MenuItem(Action(msg("finish")) {
-					System.exit(0)
-				})
-			}
-		}
+    contents = new BorderPanel() {
+      layout(select) = North
+      layout(comp) = Center
+    }
 
-		listenTo(select.selection)
-		reactions += {
-			case WindowClosing(e) => System.exit(0)
-			case SelectionChanged(`select`) => {
-				val selected = select.selection.item
-				comp.paintFractal(selected)
-			}
-		}
+    menuBar = new MenuBar {
+      contents += new Menu(msg("file")) {
+        contents += new MenuItem(Action(msg("finish")) {
+          System.exit(0)
+        })
+      }
+    }
 
-	  size = dim
-   	centerOnScreen
-   }
-	
+    listenTo(select.selection)
+    reactions += {
+      case WindowClosing(e) => System.exit(0)
+      case SelectionChanged(`select`) => {
+        val selected = select.selection.item
+        comp.paintFractal(selected)
+      }
+    }
+
+    size = dim
+    centerOnScreen
+  }
+
 }
