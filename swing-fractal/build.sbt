@@ -11,6 +11,7 @@ lazy val main = (project in file(".")).
       ),
     libraryDependencies ++= Seq(
       "org.scala-lang" % "scala-swing" % "2.10.6",
+      "org.scalatest" % "scalatest_2.10" % "3.0.1" % "test",
       "junit" % "junit" % "4.12" % "test"
     )
   )
