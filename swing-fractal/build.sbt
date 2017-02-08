@@ -12,6 +12,8 @@ lazy val main = (project in file(".")).
       ),
     libraryDependencies ++= Seq(
       "org.scala-lang.modules" % "scala-swing_2.11" % "1.0.2",
+      "com.typesafe.scala-logging" % "scala-logging_2.11" % "3.5.0",
+      "ch.qos.logback" % "logback-classic" % "1.1.7",
       "org.scalatest" %% "scalatest" % "3.0.1" % "test"
     )
   )
